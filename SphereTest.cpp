@@ -2,29 +2,30 @@
 // Created by rudri on 4/3/2024.
 //
 
-#include <catch2/catch_test_macros.hpp>
+#include <gtest/gtest.h>
 #include <cmath>
 #include <memory>
 #include "Sphere.h"
 
-TEST_CASE( "Create Sphere Zero", "[create]" ) {
+
+TEST( Object3DTest, CreateSphere ) {
   auto sphere = std::make_unique<Sphere>();
   
-  REQUIRE( sphere->surface() == 0 );
-  REQUIRE( sphere->volume() == 0 );
+  EXPECT_EQ( sphere->surface(), 0 );
+  EXPECT_EQ( sphere->volume(), 0 );
 }
 
-TEST_CASE( "Create Sphere with Radio", "[create]" ) {
+TEST( Object3DTest, InitializeSphere ) {
   auto sphere = std::make_unique<Sphere>(10);
   
-  REQUIRE( std::trunc(sphere->surface()*1000) == 1256637 );
-  REQUIRE( std::trunc(sphere->volume()*1000) == 4188790 );
+  EXPECT_EQ( std::trunc(sphere->surface()*1000), 1256637 );
+  EXPECT_EQ( std::trunc(sphere->volume()*1000), 4188790 );
 }
 
-TEST_CASE( "Print Sphere", "[show]" ) {
+TEST( Object3DTest, PrintSphere ) {
   auto sphere = std::make_unique<Sphere>(10);
   
   std::stringstream ss;
   ss << *sphere;
-  REQUIRE( ss.str() == "sphere: 4188.79 1256.64" );
+  EXPECT_EQ( ss.str(), "sphere: 4188.79 1256.64" );
 }
